@@ -1,0 +1,118 @@
+<main class="my-form">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">Register</div>
+          <div class="card-body">
+            <div class="mt-4" *ngIf="isSuccessfull">
+              <div class="d-flex justify-content-center links">
+                <p>Signup completed!</p>
+                <p>Dou you want to <a [routerLink]="['/signin']" class="ml-2" >log in?</a></p>
+              </div>
+            </div>
+            <form
+              [formGroup]="form"
+              class="sign-up"
+              name="form"
+              (ngSubmit)="form.valid && signUp()"
+              #f= "ngForm"
+              *ngIf="!isSuccessfull"
+              >
+
+              <div class="alert alert-danger" *ngIf="errorMessage!=null">Invalid form</div>
+
+              <!--Username group-->
+              <div class="form-group row">
+                <label class="col-md-4 col-from-label text-md-right">Username</label>
+                <input
+                  class="form-control"
+                  formControlName="username"
+                  name="username"
+                  autofocus
+                  type="text"
+                  placeholder="Username">
+                <div class="alert alert-danger" *ngIf="username.invalid && username.touched">
+                  <div *ngIf="username.errors.required">Username is required</div>
+                  <div *ngIf="username.errors.minlength">Username must be at least {{ username.errors.minlength.requiredLength}} letters</div>
+                  <div *ngIf="username.errors.maxlength">Username must be max {{ username.errors.maxlength.requiredLength }} letters</div>
+                </div>
+              </div>
+              <!--End of username group-->
+
+               <!--Email group-->
+               <div class="form-group row">
+                <label class="col-md-4 col-from-label text-md-right">Email adress</label>
+                <input
+                  class="form-control"
+                  formControlName="email"
+                  name="email"
+                  placeholder="Email adress">
+                <div class="alert alert-danger" *ngIf="email.invalid && email.touched">
+                  <div *ngIf="email.errors.required">Email is required</div>
+                  <div *ngIf="email.errors.email">Email must be valid email password</div>
+                </div>
+              </div>
+              <!--End of email group-->
+
+               <!--Password group-->
+               <div class="form-group row">
+                <label class="col-md-4 col-from-label text-md-right">Password</label>
+                <input
+                  class="form-control"
+                  formControlName="password"
+                  placeholder="Type password"
+                  name="password">
+                <div class="alert alert-danger" *ngIf="password.invalid && password.touched">
+                  <div *ngIf="password.errors.required">Password is required</div>
+                  <div *ngIf="password.errors.minlength">Password must be at least {{ password.errors.minlength.requiredLength}} </div>
+                  <div *ngIf="password.errors.maxlength">Password must be max {{ password.errors.maxlength.requiredLength}} </div>
+                  <div *ngIf="password.errors.pattern">Password must consist on at least:
+                    <ul>
+                      <li>one small letter</li>
+                      <li>one uppercase letter</li>
+                      <li>one special character</li>
+                      <li>one digit</li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+              <!--End of password group-->
+
+              <!--Confirm Password group-->
+              <div class="form-group row">
+                <label class="col-md-4 col-from-label text-md-right">Confrim Password</label>
+                <input
+                  class="form-control"
+                  formControlName="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="Confrim password"
+                  ngValidateEqual="password">
+                <div class="alert alert-danger" *ngIf="confirmPassword.touched && confirmPassword.invalid">
+                  <div *ngIf="confirmPassword.errors.required">Confirm Password is required</div>
+                  <div *ngIf="password.valid && confirmPassword.hasError('notEqual')"> Password and Confirmed Password must match </div>
+                </div>
+              </div>
+              <!--End of confirm password group-->
+
+              <div class="form-group row">
+                <button class="btn btn-primary btn-block" [disabled]="form.invalid">Sign up</button>
+              </div>
+
+              <div class="alert alert-danger" *ngIf="f.submitted && isSignUpFailed">Signup failed!</div>
+
+
+              <div class="mt-4">
+                <div class="d-flex justify-content-center links">
+                  Do you have an account? <a [routerLink]="['/signin']" routerLinkActive="router-link-active" class="ml-2">Log in</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+

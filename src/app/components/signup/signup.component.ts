@@ -64,7 +64,7 @@ export class SignupComponent implements OnInit {
         console.log(this.isSuccessfull);
       },
       err => {
-        this.errorMessage=err.error.message;
+         this.errorMessage=JSON.parse(err).error;
         this.isSignUpFailed=true;
       }
     )

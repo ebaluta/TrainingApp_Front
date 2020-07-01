@@ -1,0 +1,30 @@
+<div class="container">
+<h3>Dzienniczek treninowy</h3>
+<br>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Data</th>
+      <th scope="col">Dystans</th>
+      <th scope="col">Czas trwania</th>
+      <th scope="col">Opis</th>
+      <th scope="col">Edytuj</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let training of trainings">
+    <tr>
+      <th scope="row"> {{training.date}} </th>
+      <td> {{training.distance }} </td>
+      <td> {{training.duration}} </td>
+      <td> </td>
+      <td><button class="btn btn-primary btn-sm">Zmień</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div>
+  <button class="btn btn-primary" (click)="addTraining()">
+    Dodaj trening
+  </button>
+</div>

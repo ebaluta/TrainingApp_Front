@@ -28,9 +28,14 @@ export class SigninComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if(this.tokenStorage.getToken()){
+      this.isLoggedIn=true;
+    }
   }
 
   signIn(){
+
+
     this.authService.login(this.form).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
@@ -39,7 +44,10 @@ export class SigninComponent implements OnInit {
         this.invalidLogin=false;
         this.isLoggedIn=true;
 
-        this.redirect();
+        window.location.reload();
+
+
+
       },
       err => {
         this.errorMessage= err.error.message;
@@ -56,9 +64,10 @@ export class SigninComponent implements OnInit {
     return this.form.get('password');
   }
 
-  redirect(){
-    let returnUrl= this.route.snapshot.paramMap.get('returnUrl');
-    this.router.navigate([returnUrl || '/']);
-  }
+  // redirect(){
+
+  //   let returnUrl= this.route.snapshot.paramMap.get('returnUrl');
+  //   this.router.navigate([returnUrl || '/home']);
+  // }
 
 }

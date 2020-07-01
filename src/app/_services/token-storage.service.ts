@@ -11,7 +11,8 @@ export class TokenStorageService {
   constructor() { }
 
   public getToken(){
-    return sessionStorage.getItem(TOKEN_KEY);
+   // return sessionStorage.getItem(TOKEN_KEY);
+   return sessionStorage.getItem(USER_KEY);
   }
 
   public saveToken(token: string){
@@ -20,7 +21,7 @@ export class TokenStorageService {
   }
 
   public getUser(){
-    return sessionStorage.getItem(USER_KEY);
+    return JSON.parse(sessionStorage.getItem(USER_KEY));
   }
 
   public saveUser(user){

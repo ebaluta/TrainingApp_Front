@@ -37,3 +37,13 @@
 .form-control.ng-touched.ng-invalid {
   border: 2px solid orangered;
 }
+
+.successfull {
+  margin-top: 40px;
+  position: relative;
+  border: orchid solid 2px;
+  border-radius: 20px;
+  padding: 10px 20px;
+
+
+}

@@ -6,81 +6,136 @@
           <div class="card-header">Add training</div>
           <div class="card-body">
             <div class="mt-4" *ngIf="isSuccessfull">
-              <div class="d-flex justify-content-center links">
-                <p>Training added!</p>
+              <div class="justify-content-center links">
+                <div>
+                  <h4 class="mt-2">Training added!</h4>
+                </div>
 
-                <button class="btn btn-primary btn-sm" (click)="next()">Add next training</button>
-
+                <button class="btn btn-primary mt-2" (click)="next()">
+                  Add next training
+                </button>
               </div>
             </div>
-
-
 
             <form
               [formGroup]="form"
               class="sign-up"
               name="form"
-              (ngSubmit)="form.valid && signUp()"
+              (ngSubmit)="form.valid && save()"
               *ngIf="!isSuccessfull"
-              >
-
-              <div class="alert alert-danger" *ngIf="errorMessage!=null">Invalid form of training</div>
-
-            <!--Date picker-->
-            <div class="form-group row">
-
-              <mat-form-field>
-                <mat-label>Pick a date</mat-label>
-                <input matInput [max]="maxDate" [matDatepicker]="picker" formControlName="date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="date.hasError('matDatepickerParse')">
-                  {{ date.getError('matDatepickerParse').text }} is not a valid date!
-                </mat-error>
-              </mat-form-field>
-              <button mat-raised-button color="accent" [disabled]="date.invalid" (click)="display()">Save</button>
-              <div class="alert alert-danger" *ngIf="date.invalid && date.touched">
-                <div>Date is required</div>
+            >
+              <div class="alert alert-danger" *ngIf="errorMessage != null">
+                Invalid form of training
               </div>
 
-            </div>
-            <!--End of date picker-->
+              <!--Date picker-->
+              <div class="form-group row">
+                <mat-form-field>
+                  <mat-label>Pick a date</mat-label>
+                  <input
+                    matInput
+                    [max]="maxDate"
+                    [matDatepicker]="picker"
+                    formControlName="date"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="date.hasError('matDatepickerParse')">
+                    {{ date.getError("matDatepickerParse").text }} is not a
+                    valid date!
+                  </mat-error>
+                </mat-form-field>
+                <button
+                  class="btn btn-primary margin"
+                  mat-raised-button
+                  color="accent"
+                  [disabled]="date.invalid"
+                  (click)="display()"
+                >
+                  Save
+                </button>
+                <div
+                  class="alert alert-danger"
+                  *ngIf="date.invalid && date.touched"
+                >
+                  <div>Date is required</div>
+                </div>
+              </div>
+              <!--End of date picker-->
 
-            <!--Distance control-->
-            <div class="form-group row">
-              <label class="col-md-4 col-from-label text-md-left">Distance [km]</label>
-              <input formControlName="distance"
-              name="distance"
-              class="form-control"
-              type="text"
-              placeholder="Distance">
-              <div class="alert alert-danger" *ngIf="distance.touched && distance.invalid">
-                <div *ngIf="distance.errors.required">Distance is required</div>
-                <div *ngIf="distance.errors.pattern">Distance must be decimal valid number</div>
+              <!--Distance control-->
+              <div class="form-group row">
+                <label class="col-md-4 col-from-label text-md-left"
+                  >Distance [km]</label
+                >
+                <input
+                  formControlName="distance"
+                  name="distance"
+                  class="form-control"
+                  type="text"
+                  placeholder="Distance"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="distance.touched && distance.invalid"
+                >
+                  <div *ngIf="distance.errors.required">
+                    Distance is required
+                  </div>
+                  <div *ngIf="distance.errors.pattern">
+                    Distance must be decimal valid number
+                  </div>
+                </div>
               </div>
 
-            </div>
-
-            <div class="form-group row">
-              <label class="col-md-4 col-from-label text-md-left"> Duration [min] </label>
-              <input formControlName="duration"
-              name="duration"
-              class="form-control"
-              type="text"
-              placeholder="Duration">
-              <div class="alert alert-danger" *ngIf="duration.touched && duration.invalid">
-                <div *ngIf="duration.errors.required">Duration is required</div>
-                <div *ngIf="duration.errors.pattern">Duration must be decimal valid number</div>
+              <div class="form-group row">
+                <label class="col-md-4 col-from-label text-md-left">
+                  Duration [min]
+                </label>
+                <input
+                  formControlName="duration"
+                  name="duration"
+                  class="form-control"
+                  type="text"
+                  placeholder="Duration"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="duration.touched && duration.invalid"
+                >
+                  <div *ngIf="duration.errors.required">
+                    Duration is required
+                  </div>
+                  <div *ngIf="duration.errors.pattern">
+                    Duration must be decimal valid number
+                  </div>
+                </div>
               </div>
 
+              <div class="form-group row">
+                <label class="col-md-4 col-from-label text-md-left"
+                  >Description</label
+                >
+                <input
+                  formControlName="description"
+                  name="description"
+                  class="form-control"
+                  type="text"
+                  placeholder="Description"
+                />
+              </div>
 
-            </div>
-
-            <div class="form-group row">
-              <button class="btn btn-primary btn-block" [disabled]="form.invalid">Add training</button>
-            </div>
-
-
+              <div class="form-group row">
+                <button
+                  class="btn btn-primary btn-block"
+                  [disabled]="form.invalid"
+                >
+                  Add training
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -88,4 +143,3 @@
     </div>
   </div>
 </main>
-

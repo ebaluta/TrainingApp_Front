@@ -1,0 +1,68 @@
+<main *ngIf="training" class="my-form">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">Update training</div>
+          <div class="card-body">
+            <div *ngIf="!isSuccessfull">
+              <div class="form-group row">
+                <label class="col-md-4" col-from-label text-md-left> Id </label>
+                <input
+                  class="form-control"
+                  [(ngModel)]="training.id"
+                  readonly
+                />
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-4" col-from-label text-md-left>
+                  Date
+                </label>
+                <input class="form-control" [(ngModel)]="training.date" />
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-4" col-from-label text-md-left>
+                  Distance [km]
+                </label>
+                <input class="form-control" [(ngModel)]="training.distance" />
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-4" col-from-label text-md-left>
+                  Duration [min]
+                </label>
+                <input class="form-control" [(ngModel)]="training.duration" />
+              </div>
+
+              <div class="form-group row">
+                <label class="col-md-4" col-from-label text-md-left>
+                  Description
+                </label>
+                <input
+                  class="form-control"
+                  [(ngModel)]="training.description"
+                />
+              </div>
+
+              <div class="form-group row">
+                <button class="btn btn-primary btn-block" (click)="change()">
+                  Update
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-4" *ngIf="isSuccessfull">
+              <div class="justify-content-center links">
+                <div>
+                  <h4 class="mt-2">Training changed!</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

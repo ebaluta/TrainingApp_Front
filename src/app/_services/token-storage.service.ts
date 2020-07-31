@@ -1,39 +1,38 @@
 import { Injectable } from '@angular/core';
 
-const TOKEN_KEY='auth-token';
-const USER_KEY='auth-user';
+const TOKEN_KEY = 'auth-token';
+const USER_KEY = 'auth-user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenStorageService {
+  constructor() {}
 
-  constructor() { }
-
-  public getToken(){
-   // return sessionStorage.getItem(TOKEN_KEY);
-   return sessionStorage.getItem(USER_KEY);
+  public getToken() {
+    // return sessionStorage.getItem(TOKEN_KEY);
+    return sessionStorage.getItem(USER_KEY);
   }
 
-  public saveToken(token: string){
-   sessionStorage.removeItem(TOKEN_KEY);
-   sessionStorage.setItem(TOKEN_KEY,token);
+  public saveToken(token: string) {
+    sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.setItem(TOKEN_KEY, token);
   }
 
-  public getUser(){
+  public getUser() {
     return JSON.parse(sessionStorage.getItem(USER_KEY));
   }
 
-  public saveUser(user){
+  public saveUser(user) {
     sessionStorage.removeItem(USER_KEY);
-    sessionStorage.setItem(USER_KEY,JSON.stringify(user));
+    sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
-  public isLoggedIn(){
+  public isLoggedIn() {
     return !!this.getUser();
   }
 
-  signOut(){
+  signOut() {
     sessionStorage.clear();
   }
 }

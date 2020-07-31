@@ -1,1 +1,68 @@
-<p>plans works!</p>
+<div class="container">
+  <h3>Training plan for this week</h3>
+  <br />
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Day</th>
+        <th scope="col">Distance [km]</th>
+        <th scope="col">Duration [min]</th>
+        <th scope="col">Description</th>
+        <th scope="col">Edit</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let training of trainings">
+      <tr>
+        <th scope="row">{{ training.day }}</th>
+        <td>
+          <input
+            class="form-control"
+            [(ngModel)]="training.distance"
+            [readOnly]="isSaved"
+          />
+        </td>
+        <td>
+          <input
+            class="form-control"
+            [(ngModel)]="training.duration"
+            [readOnly]="isSaved"
+          />
+        </td>
+        <td>
+          <input
+            class="form-control"
+            [(ngModel)]="training.description"
+            [readOnly]="isSaved"
+          />
+        </td>
+        <td>
+          <button
+            class="btn btn-primary btn-sm"
+            (click)="change(training)"
+            [disabled]="isSaved"
+          >
+            Zmień
+          </button>
+        </td>
+      </tr>
+    </tbody>
+
+    <div class="form-group row">
+      <div class="col-md-6">
+        <button
+          class="btn btn-primary"
+          (click)="savePlan()"
+          [disabled]="isSaved"
+          type="button"
+        >
+          Save All
+        </button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-primary" (click)="edit()" type="button">
+          Edit
+        </button>
+      </div>
+    </div>
+  </table>
+</div>

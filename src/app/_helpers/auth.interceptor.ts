@@ -1,35 +1,52 @@
 import { TokenStorageService } from './../_services/token-storage.service';
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const TOKEN_HEADER_KEY='Authorization';
+const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor{
+export class AuthInterceptor implements HttpInterceptor {
+  constructor(private tokenStorage: TokenStorageService) {}
 
-  constructor(private tokenStorage: TokenStorageService){
-
-  }
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let authReq= req;
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    let authReq = req;
     const token = this.tokenStorage.getToken();
-  //  const token = JSON.parse(this.tokenStorage.getToken()).token;
+    //  const token = JSON.parse(this.tokenStorage.getToken()).token;
 
-    if(token != null){
-      if(authReq.url.endsWith('/add')){
+    if (token != null) {
+      if (
+        authReq.url.endsWith('/add') ||
+        authReq.url.endsWith('/all') ||
+        authReq.url.endsWith('/training') ||
+        authReq.url.endsWith('/create') ||
+        authReq.url.includes('change') ||
+        authReq.url.search('change') !== 0
+      ) {
         const tokenAdd = JSON.parse(token).token;
-        console.log(tokenAdd);
-        authReq=req.clone({headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer '+tokenAdd)});
-      } else{
-      authReq=req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer '+token)});
+        //  console.log(tokenAdd);
+        authReq = req.clone({
+          headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + tokenAdd),
+        });
+      } else {
+        authReq = req.clone({
+          headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token),
+        });
       }
     }
     return next.handle(authReq);
   }
-
 }
 
 export const authInterceptorProvider = [
-  { provide: HTTP_INTERCEPTORS, useClass : AuthInterceptor, multi: true}
-]
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+];

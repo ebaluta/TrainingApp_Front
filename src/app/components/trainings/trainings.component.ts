@@ -6,31 +6,31 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-trainings',
   templateUrl: './trainings.component.html',
-  styleUrls: ['./trainings.component.css']
+  styleUrls: ['./trainings.component.css'],
 })
 export class TrainingsComponent implements OnInit {
-  trainings : any [];
+  trainings: any[];
   errorMessage: string;
-
 
   constructor(
     private trainingService: TrainingsService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.trainingService.getPublicContent().subscribe(
-      data => {
-        this.trainings= JSON.parse(data);
-        console.log(this.trainings);
-      },
-      err => this.errorMessage = err.error.message
-    )
+    this.getUserContent();
   }
 
-  addTraining(){
+  getUserContent() {
+    this.trainingService.getUserContent().subscribe(
+      (data) => {
+        this.trainings = JSON.parse(data);
+      },
+      (err) => (this.errorMessage = err.error.message)
+    );
+  }
+
+  addTraining() {
     this.router.navigate(['/trainings/add']);
   }
-
-
 }

@@ -1,3 +1,4 @@
+import { ChangeTrainingComponent } from './components/change-training/change-training.component';
 import { AddTrainingComponent } from './components/add-training/add-training.component';
 
 import { AuthGuardService } from './_services/guards/auth-guard.service';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'trainings', component: TrainingsComponent, canActivate: [AuthGuardService]},
   { path: 'trainings/add', component: AddTrainingComponent },
   { path: 'plans', component: PlansComponent},
+  { path: 'change/:id', component: ChangeTrainingComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full'}
 ];
 

@@ -7,53 +7,48 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  styleUrls: ['./signin.component.css'],
 })
 export class SigninComponent implements OnInit {
-
-  invalidLogin:boolean;
-  isLoggedIn=false;
+  invalidLogin: boolean;
+  isLoggedIn = false;
   errorMessage: string;
+  isPasswordShown = false;
 
-  form=new FormGroup({
-    username: new FormControl('',Validators.required),
-    password: new FormControl('',Validators.required)
-  })
+  form = new FormGroup({
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+  });
 
   constructor(
     private authService: AuthService,
     private tokenStorage: TokenStorageService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    if(this.tokenStorage.getToken()){
-      this.isLoggedIn=true;
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
     }
   }
 
-  signIn(){
-
-
+  signIn() {
     this.authService.login(this.form).subscribe(
-      data => {
+      (data) => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
 
-        this.invalidLogin=false;
-        this.isLoggedIn=true;
+        this.invalidLogin = false;
+        this.isLoggedIn = true;
 
         window.location.reload();
-
-
-
       },
-      err => {
-        this.errorMessage= err.error.message;
-        this.invalidLogin=true;
+      (err) => {
+        this.errorMessage = err.error.message;
+        this.invalidLogin = true;
       }
-    )
+    );
   }
 
   get username() {
@@ -64,10 +59,8 @@ export class SigninComponent implements OnInit {
     return this.form.get('password');
   }
 
-  // redirect(){
 
-  //   let returnUrl= this.route.snapshot.paramMap.get('returnUrl');
-  //   this.router.navigate([returnUrl || '/home']);
-  // }
-
+  showPassword() {
+    this.isPasswordShown = !this.isPasswordShown;
+  }
 }

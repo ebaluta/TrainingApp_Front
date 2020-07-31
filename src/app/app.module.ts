@@ -1,3 +1,8 @@
+import { FlatpickrModule } from 'angularx-flatpickr';
+
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { MatRippleModule, MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,7 +28,8 @@ import { TrainingsComponent } from './components/trainings/trainings.component';
 import { PlansComponent } from './components/plans/plans.component';
 import { AddTrainingComponent } from './components/add-training/add-training.component';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
+import { ChangeTrainingComponent } from './components/change-training/change-training.component';
 
 
 @NgModule({
@@ -37,6 +43,7 @@ import { DatePipe } from '@angular/common';
     TrainingsComponent,
     PlansComponent,
     AddTrainingComponent,
+    ChangeTrainingComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +59,16 @@ import { DatePipe } from '@angular/common';
     MatDatepickerModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    CommonModule,
+    FormsModule,
+    NgbModalModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
+    FlatpickrModule
+
   ],
   exports: [
     MatButtonModule,
@@ -60,6 +76,7 @@ import { DatePipe } from '@angular/common';
     MatInputModule,
     MatRippleModule,
     MatDatepickerModule,
+    AddTrainingComponent
   ],
   providers: [
     authInterceptorProvider,

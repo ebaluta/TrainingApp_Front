@@ -30,3 +30,7 @@ main {
 mat-form-field {
   margin-right: 12px;
 }
+
+.margin {
+  margin-bottom: 10px;
+}
